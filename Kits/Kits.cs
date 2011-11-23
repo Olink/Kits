@@ -10,26 +10,17 @@ using Terraria;
 
 namespace Kits
 {
+    [APIVersion(1, 8)]
     public class Kits : TerrariaPlugin
     {
-        public static Dictionary<String, Kit> kits;
+        public static KitList kits;
 
         public static Kit FindKit( String name )
         {
-            if( kits.ContainsKey( name ) )
-            {
-                return kits[name];
-            }
-
-            return null;
+            return kits.findKit(name);
         }
 
-        public static void AddKit( String name, Kit k )
-        {
-            kits.Add( name, k );
-        }
-
-                public override Version Version
+        public override Version Version
         {
             get { return new Version("1.1"); }
         }
@@ -52,27 +43,9 @@ namespace Kits
         public Kits(Main game)
             : base(game)
         {
-            kits = new Dictionary<string, Kit>();
-            String file = Path.Combine(TShock.SavePath, "kits.txt");
-            if (File.Exists(file))
-            {
-                using (var sr = new StreamReader(file))
-                {
-                    String line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        String[] info = line.Split();
-                        if (info.Length >= 4)
-                        {
-                            String pName = info[0];
-                            int l = 0;
-                            int.TryParse(info[1], out l);
-                            String per = info[2];
-                           
-                        }
-                    }
-                }
-            }
+            KitReader reader = new KitReader();
+            kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kitTest.cfg"));
+            Console.WriteLine( kits.kits.Count + " kits have been loaded.");
         }
 
         public override void Initialize()
@@ -133,11 +106,5 @@ namespace Kits
             }
 
         }
-    
-        public static void ClearKits()
-        {
- 	        kits.Clear();
-        }
-
     }
 }

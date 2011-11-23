@@ -13,36 +13,9 @@ namespace Kits
         {
             if (ply.Group.HasPermission("kits-reload"))
             {
-                Console.WriteLine("Potions are being reloaded from file.");
-                Kits.ClearKits();
-
-                String file = Path.Combine(TShock.SavePath, "potions.txt");
-                if (File.Exists(file))
-                {
-                    using (var sr = new StreamReader(file))
-                    {
-                        String line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            String[] info = line.Split();
-                            if (info.Length >= 4)
-                            {
-                                String pName = info[0];
-                                int l = 0;
-                                int.TryParse(info[1], out l);
-                                String per = info[2];
-                                Kit k = new Kit();
-                                for (int i = 3; i < info.Length; i++)
-                                {
-                                    int id = 0;
-                                    int.TryParse(info[i], out id);
-                                }
-                                Kits.kits.Add(pName.ToLower(), k);
-                                Console.WriteLine(String.Format("Potion {0} added.", pName));
-                            }
-                        }
-                    }
-                }
+                KitReader reader = new KitReader();
+                //reader.writeFile( Path.Combine( TShockAPI.TShock.SavePath, "kitTest.cfg") );
+                Kits.kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kitTest.cfg"));
             }
             else
             {

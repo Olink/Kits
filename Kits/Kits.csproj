@@ -67,6 +67,9 @@
     <Compile Include="Cmd.cs" />
     <Compile Include="GiveCmd.cs" />
     <Compile Include="Kit.cs" />
+    <Compile Include="KitItem.cs" />
+    <Compile Include="KitList.cs" />
+    <Compile Include="KitReader.cs" />
     <Compile Include="Kits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReloadCmd.cs" />

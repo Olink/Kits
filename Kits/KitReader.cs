@@ -13,44 +13,36 @@ namespace Kits
         {
             TextWriter tw = new StreamWriter(file);
 
-            internalKitList kits = new internalKitList();
-            List<string> testItems = new List<string>();
-            testItems.Add("This");
-            testItems.Add("Is");
-            testItems.Add("a");
-            testItems.Add("test");
-            kits.kits.Add(new internalKit("Testkit", testItems));
-            tw.Write(JsonConvert.SerializeObject(kits));
+            KitList kits = new KitList();
+            List<KitItem> testItems = new List<KitItem>();
+            testItems.Add( new KitItem( 91,42 ) );
+            testItems.Add( new KitItem( 41,42 ) );
+            testItems.Add( new KitItem( 42,1 ) );
+            testItems.Add( new KitItem( 1,10 ) );
+            kits.kits.Add(new Kit("Testkit", "perm", testItems ));
+
+            testItems = new List<KitItem>();
+            testItems.Add(new KitItem(91, 42));
+            testItems.Add(new KitItem(41, 42));
+            testItems.Add(new KitItem(42, 1));
+            testItems.Add(new KitItem(1, 10));
+            kits.kits.Add(new Kit("Testkit2", "perm2", testItems));
+
+            tw.Write(JsonConvert.SerializeObject(kits, Formatting.Indented));
             tw.Close();
             //Run this first, get the format for the json, and use that for serializing itself back
             //You should get a test file with the names of objects and stuff, you can re-read that and it'll go back into the format you like
             //Change names as needed to make it look better in the file
         }
 
-        public internalKitList readFile(String file)
+        public KitList readFile(String file)
         {
             TextReader tr = new StreamReader(file);
             String raw = tr.ReadToEnd();
             tr.Close();
 
-            internalKitList kitList = JsonConvert.DeserializeObject<internalKitList>(raw);
+            KitList kitList = JsonConvert.DeserializeObject<KitList>(raw);
             return kitList;
         }
-    }
-
-    class internalKitList
-    {
-        public List<internalKit> kits;
-    }
-
-    class internalKit
-    {
-        public internalKit(String kitName, List<String> kitItems)
-        {
-            name = kitName;
-            items = kitItems;
-        }
-        public string name;
-        public List<String> items;
     }
 }
