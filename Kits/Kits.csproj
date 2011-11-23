@@ -31,6 +31,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Community.CsharpSqlite">
+      <HintPath>DLL\Community.CsharpSqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Community.CsharpSqlite.SQLiteClient">
+      <HintPath>DLL\Community.CsharpSqlite.SQLiteClient.dll</HintPath>
+    </Reference>
+    <Reference Include="HttpServer">
+      <HintPath>DLL\HttpServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>DLL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web">
+      <HintPath>DLL\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -38,10 +56,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TerrariaServer">
+      <HintPath>DLL\TerrariaServer.exe</HintPath>
+    </Reference>
+    <Reference Include="TShockAPI">
+      <HintPath>DLL\TShockAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Cmd.cs" />
+    <Compile Include="GiveCmd.cs" />
+    <Compile Include="Kit.cs" />
+    <Compile Include="Kits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReloadCmd.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
