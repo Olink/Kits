@@ -44,7 +44,7 @@ namespace Kits
             : base(game)
         {
             KitReader reader = new KitReader();
-            kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kitTest.cfg"));
+            kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
             Console.WriteLine( kits.kits.Count + " kits have been loaded.");
         }
 

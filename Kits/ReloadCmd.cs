@@ -14,8 +14,7 @@ namespace Kits
             if (ply.Group.HasPermission("kits-reload"))
             {
                 KitReader reader = new KitReader();
-                //reader.writeFile( Path.Combine( TShockAPI.TShock.SavePath, "kitTest.cfg") );
-                Kits.kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kitTest.cfg"));
+                Kits.kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
             }
             else
             {
