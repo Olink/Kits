@@ -9,30 +9,22 @@ namespace Kits
 {
     class KitReader
     {
-        public void writeFile(String file)
+        public KitList writeFile(String file)
         {
             TextWriter tw = new StreamWriter(file);
 
             KitList kits = new KitList();
             List<KitItem> testItems = new List<KitItem>();
-            testItems.Add( new KitItem( 91,42 ) );
-            testItems.Add( new KitItem( 41,42 ) );
-            testItems.Add( new KitItem( 42,1 ) );
-            testItems.Add( new KitItem( 1,10 ) );
-            kits.kits.Add(new Kit("Testkit", "perm", testItems ));
 
-            testItems = new List<KitItem>();
-            testItems.Add(new KitItem(91, 42));
-            testItems.Add(new KitItem(41, 42));
-            testItems.Add(new KitItem(42, 1));
-            testItems.Add(new KitItem(1, 10));
-            kits.kits.Add(new Kit("Testkit2", "perm2", testItems));
+            testItems.Add( new KitItem( 76,1 ) );
+            testItems.Add( new KitItem( 80,1 ) );
+            testItems.Add( new KitItem( 89,1 ) );
+            kits.kits.Add(new Kit("basics", "default-kit", testItems ));
 
             tw.Write(JsonConvert.SerializeObject(kits, Formatting.Indented));
             tw.Close();
-            //Run this first, get the format for the json, and use that for serializing itself back
-            //You should get a test file with the names of objects and stuff, you can re-read that and it'll go back into the format you like
-            //Change names as needed to make it look better in the file
+
+            return kits;
         }
 
         public KitList readFile(String file)

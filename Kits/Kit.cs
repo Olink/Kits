@@ -35,8 +35,9 @@ namespace Kits
             foreach( KitItem i in items )
             {
                 Item item = TShockAPI.Tools.GetItemById(i.id);
+                int amount = Math.Min(item.maxStack, i.amt);
                 if( item != null )
-                    ply.GiveItem(item.type, item.name, item.width, item.height, i.amt);
+                    ply.GiveItem(item.type, item.name, item.width, item.height, amount);
             }
         }
     }

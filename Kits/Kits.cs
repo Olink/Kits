@@ -14,6 +14,7 @@ namespace Kits
     public class Kits : TerrariaPlugin
     {
         public static KitList kits;
+        public static String savepath = "";
 
         public static Kit FindKit( String name )
         {
@@ -43,9 +44,19 @@ namespace Kits
         public Kits(Main game)
             : base(game)
         {
+            savepath = Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg");
+            
             KitReader reader = new KitReader();
-            kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
-            Console.WriteLine( kits.kits.Count + " kits have been loaded.");
+            if (File.Exists(savepath))
+            {
+                kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
+                Console.WriteLine(kits.kits.Count + " kits have been loaded.");
+            }
+            else
+            {
+                kits = reader.writeFile(savepath);
+                Console.WriteLine( "Basic kit file being created.  1 kit containing copper armor created. ");
+            }
         }
 
         public override void Initialize()
