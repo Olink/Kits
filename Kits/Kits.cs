@@ -10,7 +10,7 @@ using Terraria;
 
 namespace Kits
 {
-    [APIVersion(1, 8)]
+    [APIVersion(1, 9)]
     public class Kits : TerrariaPlugin
     {
         public static KitList kits;
@@ -23,7 +23,7 @@ namespace Kits
 
         public override Version Version
         {
-            get { return new Version("1.1"); }
+            get { return new Version("1.2"); }
         }
 
         public override string Name
@@ -49,7 +49,7 @@ namespace Kits
             KitReader reader = new KitReader();
             if (File.Exists(savepath))
             {
-                kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
+                kits = reader.readFile(savepath);
                 Console.WriteLine(kits.kits.Count + " kits have been loaded.");
             }
             else

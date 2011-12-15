@@ -29,7 +29,7 @@ namespace Kits
                     return;
                 }
 
-                if (ply.Group.HasPermission(k.getPerm()))
+                if (ply.Group.HasPermission(k.perm))
                 {
                     k.giveItems(ply);
                 }

@@ -13,6 +13,7 @@ namespace Kits
         {
             if (ply.Group.HasPermission("kits-reload"))
             {
+                Console.WriteLine("Kits are being reloaded from file.");
                 KitReader reader = new KitReader();
                 Kits.kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
             }

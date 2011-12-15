@@ -18,7 +18,7 @@ namespace Kits
         {
             foreach( Kit k in kits )
             {
-                if( k.getName() == name )
+                if( k.name == name )
                 {
                     return k;
                 }
