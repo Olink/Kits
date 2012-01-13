@@ -10,7 +10,7 @@ using Terraria;
 
 namespace Kits
 {
-    [APIVersion(1, 9)]
+    [APIVersion(1, 10)]
     public class Kits : TerrariaPlugin
     {
         public static KitList kits;
@@ -23,7 +23,7 @@ namespace Kits
 
         public override Version Version
         {
-            get { return new Version("1.2"); }
+            get { return new Version("1.1"); }
         }
 
         public override string Name
@@ -44,12 +44,13 @@ namespace Kits
         public Kits(Main game)
             : base(game)
         {
+            Order = 4;
             savepath = Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg");
             
             KitReader reader = new KitReader();
             if (File.Exists(savepath))
             {
-                kits = reader.readFile(savepath);
+                kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
                 Console.WriteLine(kits.kits.Count + " kits have been loaded.");
             }
             else
@@ -61,61 +62,59 @@ namespace Kits
 
         public override void Initialize()
         {
-            ServerHooks.Chat += HandleCommand;
+            Commands.ChatCommands.Add( new Command("", HandleCommand, "kit"));
         }
 
-        protected override void Dispose(bool disposing)
+        private void HandleCommand(CommandArgs args)
         {
-            if (disposing)
-            {
-                ServerHooks.Chat -= HandleCommand;
-            }
-        }
-
-        private void HandleCommand(messageBuffer buff, int i, String command, HandledEventArgs args)
-        {
-            TSPlayer ply = TShock.Players[buff.whoAmI];
+            TSPlayer ply = args.Player;
             if (ply == null)
                 return;
 
-            String commandline = command;
-            String[] tokens = command.Split();
-
-            if (commandline.Length > 0 && tokens[0] == "/kit")
+            
+            if( args.Parameters.Count < 1 )
             {
-                args.Handled = true;
-                tokens = commandline.Trim().Split();
+                ply.SendMessage("Valid commands are:", Color.Red);
+                ply.SendMessage("/kit reload", Color.Red);
+                ply.SendMessage("/kit <kit name>", Color.Red);
+                return;
+            }
 
-                for (int k = 0; k < tokens.Length; k++)
+            if( args.Parameters[0] == "reload")
+            {
+                if (ply.Group.HasPermission("kits-reload"))
                 {
-                    tokens[k] = tokens[k].ToLower().Trim();
-                }
-
-                if( tokens.Length == 1 )
-                {
-                    ply.SendMessage("Valid commands are:", Color.Red);
-                    ply.SendMessage("/kit reload", Color.Red);
-                    ply.SendMessage("/kit <kit name>", Color.Red);
-                    return;
-                }
-                
-                Cmd cmd = Cmd.findCmd(tokens[1]);
-
-                if (cmd != null)
-                {
-                    cmd.token(tokens);
-                    cmd.setPlayer(ply);
-                    cmd.exec();
+                    KitReader reader = new KitReader();
+                    Kits.kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
                 }
                 else
                 {
-                    cmd = new GiveCmd();
-                    cmd.token(tokens);
-                    cmd.setPlayer(ply);
-                    cmd.exec();
+                    ply.SendMessage("You do not have access to this command.", Color.Red);
                 }
+                return;
             }
+            else
+            {
+                String kitname = args.Parameters[0];
+              
+                Kit k = Kits.FindKit(kitname);
 
+                if (k == null)
+                {
+                    ply.SendMessage(String.Format("The {0} kit does not exist.", kitname), Color.Red);
+                    return;
+                }
+
+                if (ply.Group.HasPermission(k.getPerm()))
+                {
+                    k.giveItems(ply);
+                }
+                else
+                {
+                    ply.SendMessage(String.Format("You do not have access to the {0} kit.", kitname), Color.Red);
+                }
+
+            }
         }
     }
 }

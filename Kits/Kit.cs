@@ -20,15 +20,27 @@ namespace Kits
             this.items = items;
         }
 
+        public String getName()
+        {
+            return name;
+        }
+
+        public String getPerm()
+        {
+            return perm;
+        }
+
         public void giveItems( TSPlayer ply)
         {
             foreach( KitItem i in items )
             {
-                Item item = TShockAPI.TShock.Utils.GetItemById(i.id);
+                Item item = TShock.Utils.GetItemById(i.id);
                 int amount = Math.Min(item.maxStack, i.amt);
                 if( item != null )
                     ply.GiveItem(item.type, item.name, item.width, item.height, amount);
             }
+
+            ply.SendMessage( String.Format("{0} kit given. Enjoy!", name), Color.Green );
         }
     }
 }
