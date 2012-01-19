@@ -10,7 +10,7 @@ using Terraria;
 
 namespace Kits
 {
-    [APIVersion(1, 10)]
+    [APIVersion(1, 11)]
     public class Kits : TerrariaPlugin
     {
         public static KitList kits;
