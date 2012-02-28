@@ -34,7 +34,19 @@ namespace Kits
         {
             foreach( KitItem i in items )
             {
-                Item item = TShock.Utils.GetItemById(i.id);
+                List<Item> itemList = TShock.Utils.GetItemByIdOrName(i.id);
+                if (itemList.Count == 0)
+                {
+                    Log.ConsoleError(String.Format("The specified item does not exist: {0}", i.id) );
+                    continue;
+                }
+                else if( itemList.Count > 1 )
+                {
+                    Log.ConsoleError(String.Format("The specified item has multiple entries: {0}.\n Using the first item.", i.id));
+                }
+
+                Item item = itemList[0];
+
                 int amount = Math.Min(item.maxStack, i.amt);
                 if( item != null )
                     ply.GiveItem(item.type, item.name, item.width, item.height, amount);

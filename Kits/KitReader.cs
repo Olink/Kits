@@ -13,18 +13,19 @@ namespace Kits
         {
             TextWriter tw = new StreamWriter(file);
 
-            KitList kits = new KitList();
+            KitList kitList = new KitList();
+
             List<KitItem> testItems = new List<KitItem>();
 
-            testItems.Add( new KitItem( 76,1 ) );
-            testItems.Add( new KitItem( 80,1 ) );
-            testItems.Add( new KitItem( 89,1 ) );
-            kits.kits.Add(new Kit("basics", "default-kit", testItems ));
+            testItems.Add( new KitItem( "76", 1 ) );
+            testItems.Add( new KitItem( "80", 1 ) );
+            testItems.Add( new KitItem( "89", 1 ) );
+            KitList.AddItem(new Kit("basics", "default-kit", testItems));
 
-            tw.Write(JsonConvert.SerializeObject(kits, Formatting.Indented));
+            tw.Write(JsonConvert.SerializeObject(KitList.kits, Formatting.Indented));
             tw.Close();
 
-            return kits;
+            return kitList;
         }
 
         public KitList readFile(String file)

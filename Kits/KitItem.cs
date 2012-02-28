@@ -7,10 +7,10 @@ namespace Kits
 {
     public class KitItem
     {
-        public int id;
+        public string id;
         public int amt;
 
-        public KitItem( int i, int a )
+        public KitItem(string i, int a)
         {
             id = i;
             amt = a;

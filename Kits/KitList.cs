@@ -5,16 +5,21 @@ using System.Text;
 
 namespace Kits
 {
+    [Serializable]
     public class KitList
     {
-        public List<Kit> kits;
+        public static List<Kit> kits = new List<Kit>();
 
         public KitList()
         {
-            kits = new List<Kit>();
         }
 
-        public Kit findKit( String name )
+        public static void AddItem( Kit k )
+        {
+            kits.Add( k );
+        }
+
+        public static Kit findKit( String name )
         {
             foreach( Kit k in kits )
             {

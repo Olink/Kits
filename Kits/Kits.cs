@@ -18,7 +18,7 @@ namespace Kits
 
         public static Kit FindKit( String name )
         {
-            return kits.findKit(name);
+            return KitList.findKit(name);
         }
 
         public override Version Version
@@ -41,6 +41,11 @@ namespace Kits
             get { return "Create kits for giving packs of items!"; }
         }
 
+        /// <summary>
+        /// Called after TShock is initialized. Useful for plugins that needs hooks before tshock but also depend on tshock being loaded.
+        /// </summary>
+        public static event Action Initialized;
+
         public Kits(Main game)
             : base(game)
         {
@@ -51,19 +56,25 @@ namespace Kits
             if (File.Exists(savepath))
             {
                 kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
-                Console.WriteLine(kits.kits.Count + " kits have been loaded.");
+                Console.WriteLine(KitList.kits.Count + " kits have been loaded.");
             }
             else
             {
                 kits = reader.writeFile(savepath);
                 Console.WriteLine( "Basic kit file being created.  1 kit containing copper armor created. ");
             }
+
+            Console.WriteLine( "End of pre initialize");
+            
+            if (Initialized != null)
+                Initialized();
         }
 
         public override void Initialize()
         {
             Commands.ChatCommands.Add( new Command("", HandleCommand, "kit"));
         }
+
 
         private void HandleCommand(CommandArgs args)
         {
@@ -114,6 +125,26 @@ namespace Kits
                     ply.SendMessage(String.Format("You do not have access to the {0} kit.", kitname), Color.Red);
                 }
 
+            }
+        }
+
+        public static void GiveKit( TSPlayer ply, string kitname)
+        {
+            Kit k = KitList.findKit(kitname);
+            if( k != null )
+            {
+                if( ply != null)
+                {
+                    k.giveItems(ply);
+                }
+                else
+                {
+                    Log.ConsoleError("The player specified does not exist.");
+                }
+            }
+            else
+            {
+                Log.ConsoleError( string.Format("The kit {0} does not exist.", kitname));
             }
         }
     }
