@@ -18,7 +18,7 @@ namespace Kits
 
         public static Kit FindKit( String name )
         {
-            return KitList.findKit(name);
+            return kits.findKit(name);
         }
 
         public override Version Version

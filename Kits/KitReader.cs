@@ -20,9 +20,9 @@ namespace Kits
             testItems.Add( new KitItem( "76", 1 ) );
             testItems.Add( new KitItem( "80", 1 ) );
             testItems.Add( new KitItem( "89", 1 ) );
-            KitList.AddItem(new Kit("basics", "default-kit", testItems));
+            kitList.AddItem(new Kit("basics", "default-kit", testItems));
 
-            tw.Write(JsonConvert.SerializeObject(KitList.kits, Formatting.Indented));
+            tw.Write(JsonConvert.SerializeObject(kitList, Formatting.Indented));
             tw.Close();
 
             return kitList;
@@ -33,7 +33,6 @@ namespace Kits
             TextReader tr = new StreamReader(file);
             String raw = tr.ReadToEnd();
             tr.Close();
-
             KitList kitList = JsonConvert.DeserializeObject<KitList>(raw);
             return kitList;
         }

@@ -7,6 +7,7 @@ using Terraria;
 
 namespace Kits
 {
+    [Serializable]
     public class Kit
     {
         public String name;
