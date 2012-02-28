@@ -56,7 +56,7 @@ namespace Kits
             if (File.Exists(savepath))
             {
                 kits = reader.readFile(Path.Combine(TShockAPI.TShock.SavePath, "kits.cfg"));
-                Console.WriteLine(KitList.kits.Count + " kits have been loaded.");
+                Console.WriteLine(kits.kits.Count + " kits have been loaded.");
             }
             else
             {
@@ -130,7 +130,7 @@ namespace Kits
 
         public static void GiveKit( TSPlayer ply, string kitname)
         {
-            Kit k = KitList.findKit(kitname);
+            Kit k = kits.findKit(kitname);
             if( k != null )
             {
                 if( ply != null)
