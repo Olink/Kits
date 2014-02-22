@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Hooks;
 using TShockAPI;
 using Terraria;
+using TerrariaApi.Server;
 
 namespace Kits
 {
-    [APIVersion(1, 11)]
+    [ApiVersion(1, 15)]
     public class Kits : TerrariaPlugin
     {
         public static KitList kits;
