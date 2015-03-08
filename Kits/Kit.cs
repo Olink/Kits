@@ -13,12 +13,14 @@ namespace Kits
         public String name;
         public String perm;
         public List<KitItem> items;
+	    public int cooldown;
 
-        public Kit( String name, String perm, List<KitItem> items )
+        public Kit( String name, String perm, List<KitItem> items, int cooldown )
         {
             this.name = name.ToLower();
             this.perm = perm;
             this.items = items;
+	        this.cooldown = cooldown;
         }
 
         public String getName()

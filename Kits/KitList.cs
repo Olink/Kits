@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Kits
 {
+	[Serializable]
     public class KitList
     {
-        public List<Kit> kits;
+        public List<Kit> kits = new List<Kit>();
 
         public KitList()
         {
-            kits = new List<Kit>();
         }
 
         public void AddItem( Kit k )

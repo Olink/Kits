@@ -49,7 +49,8 @@
     <Compile Include="Kit.cs" />
     <Compile Include="KitItem.cs" />
     <Compile Include="KitList.cs" />
-    <Compile Include="KitReader.cs" />
+    <Compile Include="ConfigFile.cs" />
+    <Compile Include="KitPlayer.cs" />
     <Compile Include="Kits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
